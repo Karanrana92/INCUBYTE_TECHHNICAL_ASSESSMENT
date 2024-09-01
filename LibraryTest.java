@@ -14,6 +14,17 @@ class LibraryTest {
         library = new Library();
     }
 
+    // borrow book test case
+    @Test
+    void shouldBorrowBookFromLibrary() {
+        Book book = new Book("12345", "1984", "George Orwell", 1949);
+        library.addBook(book);
+        library.borrowBook("12345");
+        assertFalse(book.isAvailable());
+    }
+
+
+    // Add book test case
     @Test
     void shouldAddNewBookToLibrary() {
         Book book = new Book("12345", "The Great Gatsby", "F. Scott Fitzgerald", 1925);
