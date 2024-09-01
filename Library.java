@@ -13,7 +13,7 @@ public class Library {
     }
 
     // Add book
-    public void addBook(Book book) {
+    public void add_book(Book book) {
         if (books.stream().noneMatch(b -> b.getIsbn().equals(book.getIsbn()))) {
             books.add(book);
         } else {
@@ -22,12 +22,29 @@ public class Library {
     }
 
     // Borrow book 
-    public void borrowBook(String isbn) {
+    public void borrow_book(String isbn) {
         Book book = books.stream()
                 .filter(b -> b.getIsbn().equals(isbn) && b.isAvailable())
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Book is not available or does not exist."));
         book.setAvailable(false);
+    }
+
+    // Return book
+    public void return_book(String isbn) {
+        Book book = books.stream()
+                .filter(b -> b.getIsbn().equals(isbn) && !b.isAvailable())
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Book was not borrowed or does not exist."));
+        book.setAvailable(true);
+    }
+
+    
+    // View available books
+    public List<Book> viewAvailableBooks() {
+        return books.stream()
+            .filter(Book::isAvailable)
+            .toList();
     }
 
 
